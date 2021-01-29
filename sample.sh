@@ -90,7 +90,7 @@ mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.serv
  systemctl start $COMPONENT
  systemctl enable $COMPONENT
 status
-
+;;
 *)
   echo "Invalid entry "
   ;;
