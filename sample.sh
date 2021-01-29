@@ -17,9 +17,10 @@ exit
 ;;
 esac
 }
-heading()
+heading
 case $COMPONENT in
 frontend)
+
 echo -n -e "\e[34mInstalling Nginx\e[0m\t"
 yum install nginx -y &>> $LOG_FILE
 status
