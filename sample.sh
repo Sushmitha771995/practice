@@ -17,7 +17,7 @@ exit
 ;;
 esac
 }
-
+heading()
 case $COMPONENT in
 frontend)
 echo -n -e "\e[34mInstalling Nginx\e[0m\t"
