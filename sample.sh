@@ -27,9 +27,9 @@ mv static/* .
 rm -rf static README.md doc* DOC* Azu* &>> /tmp/outfile
 if [$? == '0' ]
 then
-echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
+echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m".
 else
-echo -e "\t\t\t\t\t\e[32mFailure\e[0m"
+echo -e "\t\t\t\t\t\e[32mFailure\e[0m".
 exit
 fi
 echo -e "\e[34mSetting up configuration\e[0m"
