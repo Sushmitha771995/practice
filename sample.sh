@@ -64,6 +64,7 @@ unzip mongodb.zip
  mongo < catalogue.js
  mongo < users.js
  status
+ ;;
 *)
   echo "Invalid entry "
   ;;
