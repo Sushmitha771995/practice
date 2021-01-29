@@ -72,7 +72,7 @@ catalogue)
 yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
 status
 
-echo -n -e "\e[34mDownloading catalogue docs\e[0m\t\t"
+echo -n -e "\e[34mDownloading catalogue docs\e[0m\t"
 id -u roboshop &>/dev/null
 case $? in
 0)
@@ -90,9 +90,9 @@ mkdir -p $COMPONENT
 status
 cd $COMPONENT
 status
-unzip  -o /tmp/$COMPONENT.zip
+unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
 status
-chown -R roboshop:roboshop &>> $LOG_FILE
+chown -R roboshop:roboshop /home/roboshop/$COMPONENT/* &>> $LOG_FILE
 status
 npm install  &>> $LOG_FILE
 status
