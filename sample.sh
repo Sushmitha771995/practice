@@ -92,7 +92,7 @@ cd $COMPONENT
 status
 unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
 status
-chown -R roboshop:roboshop /home/roboshop/$COMPONENT/* &>> $LOG_FILE
+chown -R roboshop:roboshop /home/roboshop/$COMPONENT
 status
 npm install  &>> $LOG_FILE
 status
