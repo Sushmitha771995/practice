@@ -90,7 +90,7 @@ mkdir -p $COMPONENT
 status
 cd $COMPONENT
 status
-unzip /tmp/$COMPONENT.zip &>> $LOG_FILE
+unzip /tmp/$COMPONENT.zip
 status
 chown -R roboshop:roboshop &>> $LOG_FILE
 status
