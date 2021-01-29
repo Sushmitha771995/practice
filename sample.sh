@@ -73,10 +73,10 @@ yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
 status
 
 echo -n -e "\e[34mDownloading catalogue docs\e[0m\t\t"
-useradd roboshop
+useradd roboshop  &>> $LOG_FILE
 case $? in
 9)
-  $? = 0
+exit 0
   ;;
 *)
   echo "user add failure"
