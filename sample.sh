@@ -74,6 +74,7 @@ status
 
 echo -n -e "\e[34mDownloading catalogue docs\e[0m\t\t"
 useradd roboshop
+echo $?
 status
 su roboshop
 status
