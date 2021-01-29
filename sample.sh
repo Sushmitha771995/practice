@@ -2,7 +2,6 @@
 echo -e "\e[35mfrontend\e[0m"
 echo -e "\e[34mInstalling Nginx\e[0m"
 yum install nginx -y &>> /tmp/outfile
-echo $?
 if [ $? == 0 ]
 then
 echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
@@ -11,7 +10,7 @@ echo -e "\t\t\t\t\t\e[32mFailure\e[0m"
 exit
 fi
 echo -e "\e[34mDownloading frontend docs\e[0m"
-if [$? == '0' ]
+if [ $? == '0' ]
 then
 echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
 else
@@ -25,7 +24,7 @@ rm -rf *
 unzip /tmp/frontend.zip &>> /tmp/outfile
 mv static/* .
 rm -rf static README.md doc* DOC* Azu* &>> /tmp/outfile
-if [$? == '0' ]
+if [ $? == '0' ]
 then
 echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m".
 else
@@ -38,7 +37,7 @@ echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
 echo -e "\e[34mStarting frontend\e[0m"
 systemctl enable nginx
 systemctl start nginx
-if [$? == '0' ]
+if [ $? == '0' ]
 then
 echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
 else
