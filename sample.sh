@@ -72,7 +72,7 @@ catalogue)
 yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
 status
 
-echo -n -e "\e[34mDownloading catalogue docs\e[0m\t"
+echo -n -e "\e[34mDownloading catalogue dependcines\e[0m\t"
 id -u roboshop &>/dev/null
 case $? in
 0)
@@ -81,26 +81,18 @@ case $? in
 useradd roboshop  &>> $LOG_FILE
 ;;
 esac
-status
 curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/1a7bd015-d982-487f-9904-1aa01c825db4/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
-status
 cd /home/roboshop
-status
 mkdir -p $COMPONENT
-status
 cd $COMPONENT
-status
 unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
-status
 chown -R roboshop:roboshop /home/roboshop/$COMPONENT
-status
 npm install  &>> $LOG_FILE
 status
 echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
-
  systemctl daemon-reload
- systemctl start $COMPONENT
+systemctl start $COMPONENT
  systemctl enable $COMPONENT
 status
 ;;
