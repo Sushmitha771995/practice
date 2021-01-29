@@ -1,6 +1,6 @@
 #!/bin/bash
-LOG_FILE = /tmp/outfile
-COMPONENT = $1
+LOG_FILE=/tmp/outfile
+COMPONENT=$1
 heading()
 {
   echo  -e "\t\t\t\e[35m$COMPONENT\e[0m"
