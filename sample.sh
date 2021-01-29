@@ -3,7 +3,7 @@ echo -e "\e[35mfrontend\e[0m"
 echo -e "\e[34mInstalling Nginx\e[0m"
 yum install nginx -y &>> /tmp/outfile
 echo $?
-if [$? == '0' ]
+if [ $? == 0 ]
 then
 echo -e "\t\t\t\t\t\e[32mSUCCESS\e[0m"
 else
