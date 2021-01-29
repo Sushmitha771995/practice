@@ -74,6 +74,14 @@ status
 
 echo -n -e "\e[34mDownloading catalogue docs\e[0m\t\t"
 useradd roboshop
+case $? in
+9)
+  $? = 0
+  ;;
+*)
+  echo "user add failure"
+;;
+esac
 echo $?
 status
 su roboshop
