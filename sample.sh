@@ -74,7 +74,10 @@ status
 
 echo -n -e "\e[34mDownloading catalogue docs\e[0m\t\t"
 useradd roboshop
+status
 su roboshop
+status
+
 curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/1a7bd015-d982-487f-9904-1aa01c825db4/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
 cd /home/roboshop
 mkdir $COMPONENT
