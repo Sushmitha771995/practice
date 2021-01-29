@@ -97,7 +97,6 @@ status
 npm install  &>> $LOG_FILE
 status
 echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
-sudo su -
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
 
  systemctl daemon-reload
