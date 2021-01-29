@@ -1,6 +1,7 @@
 #!/bin/bash
 
-status() {
+status()
+{
 case $? in
 0)
 echo -e "\t\t\t\t\e[32mSUCCESS\e[0m"
@@ -9,7 +10,9 @@ echo -e "\t\t\t\t\e[32mSUCCESS\e[0m"
 echo -e "\t\t\t\t\e[32mFailure\e[0m"
 exit
 ;;
+esac
 }
+
 echo  -e "\t\t\t\e[35mfrontend\e[0m"
 echo -n -e "\e[34mInstalling Nginx\e[0m"
 yum install nginx -y &>> /tmp/outfile
