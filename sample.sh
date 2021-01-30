@@ -17,6 +17,40 @@ exit
 ;;
 esac
 }
+user_add()
+{
+ id -u roboshop &>/dev/null
+case $? in
+0)
+  ;;
+*)
+useradd roboshop  &>> $LOG_FILE
+;;
+esac
+}
+
+app_service() {
+   echo -n -e "\e[34mInstalling node js\e[0m\t\t"
+yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
+status
+
+echo -n -e "\e[34mDownloading catalogue dependcines\e[0m\t"
+
+curl -s -L -o /tmp/$COMPONENT.zip "$1"  &>> $LOG_FILE
+cd /home/roboshop
+mkdir -p $COMPONENT
+cd $COMPONENT
+unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
+npm install --unsafe-perm  &>> $LOG_FILE
+status
+chown -R roboshop:roboshop /home/roboshop/$COMPONENT
+echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
+mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
+systemctl daemon-reload
+systemctl start $COMPONENT
+systemctl enable $COMPONENT
+status
+}
 heading
 case $COMPONENT in
 frontend)
@@ -67,34 +101,10 @@ mongo < catalogue.js   &>> $LOG_FILE
 mongo < users.js       &>> $LOG_FILE
  status
  ;;
-catalogue)
- echo -n -e "\e[34mInstalling node js\e[0m\t\t"
-yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
-status
 
-echo -n -e "\e[34mDownloading catalogue dependcines\e[0m\t"
-id -u roboshop &>/dev/null
-case $? in
-0)
-  ;;
-*)
-useradd roboshop  &>> $LOG_FILE
-;;
-esac
-curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/1a7bd015-d982-487f-9904-1aa01c825db4/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
-cd /home/roboshop
-mkdir -p $COMPONENT
-cd $COMPONENT
-unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
-npm install --unsafe-perm  &>> $LOG_FILE
-status
-chown -R roboshop:roboshop /home/roboshop/$COMPONENT
-echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
-mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
- systemctl daemon-reload
-systemctl start $COMPONENT
- systemctl enable $COMPONENT
-status
+
+catalogue)
+app_service https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/1a7bd015-d982-487f-9904-1aa01c825db4/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true
 ;;
 redis)
 echo -n -e "\e[34mInstalling Redis\e[0m\t\t"
@@ -112,35 +122,9 @@ systemctl start redis    &>> $LOG_FILE
 status
 ;;
 user)
-echo -n -e "\e[34mInstalling node js\e[0m\t\t"
-yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
-status
 
-echo -n -e "\e[34mDownloading user dependcines\e[0m\t"
-id -u roboshop &>/dev/null
-case $? in
-0)
-  ;;
-*)
-useradd roboshop  &>> $LOG_FILE
-;;
-esac
-curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/360c1f78-e8ed-41e8-8b3d-bdd12dc8a6a1/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
-cd /home/roboshop
-mkdir -p $COMPONENT
-cd $COMPONENT
-unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
-npm install --unsafe-perm  &>> $LOG_FILE
-status
-chown -R roboshop:roboshop /home/roboshop/$COMPONENT
-echo -n -e "\e[34mUpdate configuration files\e[0m\t"
-mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
-status
-echo -n -e "\e[34mStart $COMPONENT service\e[0m\t\t\t"
-systemctl daemon-reload  &>> $LOG_FILE
-systemctl start $COMPONENT    &>> $LOG_FILE
-systemctl enable $COMPONENT    &>> $LOG_FILE
-status
+  app_service https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/360c1f78-e8ed-41e8-8b3d-bdd12dc8a6a1/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true
+
 ;;
 
   cart)
@@ -149,14 +133,7 @@ yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
 status
 
 echo -n -e "\e[34mDownloading $COMPONENT dependcines\e[0m\t"
-id -u roboshop &>/dev/null
-case $? in
-0)
-  ;;
-*)
-useradd roboshop  &>> $LOG_FILE
-;;
-esac
+user_add
 curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/d1ba7cbf-6c60-4403-865d-8a522a76cd76/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
 cd /home/roboshop
 mkdir -p $COMPONENT
@@ -168,7 +145,7 @@ chown -R roboshop:roboshop /home/roboshop/$COMPONENT
 echo -n -e "\e[34mUpdate configuration files\e[0m\t"
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
 status
-echo -n -e "\e[34mStart $COMPONENT service\e[0m\t\t\t"
+echo -n -e "\e[34mStart $COMPONENT service\e[0m\t\t"
 systemctl daemon-reload  &>> $LOG_FILE
 systemctl start $COMPONENT    &>> $LOG_FILE
 systemctl enable $COMPONENT    &>> $LOG_FILE
