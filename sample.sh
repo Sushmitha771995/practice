@@ -31,15 +31,15 @@ esac
 
 app_service() {
 echo -n -e "\e[34mInstalling node js\e[0m\t\t"
-yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
+yum install nodejs make gcc-c++ -y
 status
 echo -n -e "\e[34mDownloading catalogue dependcines\e[0m\t"
-curl -s -L -o /tmp/$COMPONENT.zip $1  &>> $LOG_FILE
+curl -s -L -o /tmp/$COMPONENT.zip $1
 cd /home/roboshop
 mkdir -p $COMPONENT
 cd $COMPONENT
-unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
-npm install --unsafe-perm  &>> $LOG_FILE
+unzip  -o /tmp/$COMPONENT.zip &>>
+npm install --unsafe-perm
 status
 chown -R roboshop:roboshop /home/roboshop/$COMPONENT
 echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
