@@ -38,7 +38,7 @@ curl -s -L -o /tmp/$COMPONENT.zip $1
 cd /home/roboshop
 mkdir -p $COMPONENT
 cd $COMPONENT
-unzip  -o /tmp/$COMPONENT.zip &>>
+unzip  -o /tmp/$COMPONENT.zip
 npm install --unsafe-perm
 status
 chown -R roboshop:roboshop /home/roboshop/$COMPONENT
