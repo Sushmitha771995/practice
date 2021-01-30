@@ -141,6 +141,7 @@ systemctl daemon-reload
 systemctl start $COMPONENT
 systemctl enable $COMPONENT
 status
+;;
 *)
   echo "Invalid entry "
   ;;
