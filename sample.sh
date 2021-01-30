@@ -86,9 +86,9 @@ cd /home/roboshop
 mkdir -p $COMPONENT
 cd $COMPONENT
 unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
-chown -R roboshop:roboshop /home/roboshop/$COMPONENT
-npm install  &>> $LOG_FILE
+npm install --unsafe-perm  &>> $LOG_FILE
 status
+chown -R roboshop:roboshop /home/roboshop/$COMPONENT
 echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
  systemctl daemon-reload
@@ -96,6 +96,51 @@ systemctl start $COMPONENT
  systemctl enable $COMPONENT
 status
 ;;
+redis)
+echo -n -e "\e[34mInstalling Redis\e[0m\t\t"
+yum install epel-release yum-utils -y &>> $LOG_FILE
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y &>> $LOG_FILE
+yum-config-manager --enable remi &>> $LOG_FILE
+ yum install redis -y &>> $LOG_FILE
+ status
+echo -n -e "\e[34mUpdate config file\e[0m\t\t"
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/$COMPONENT.conf
+status
+echo -n -e "\e[34mStart Redis service\e[0m\t\t"
+systemctl enable redis
+systemctl start redis
+status
+;;
+user)
+echo -n -e "\e[34mInstalling node js\e[0m\t\t"
+yum install nodejs make gcc-c++ -y  &>> $LOG_FILE
+status
+
+echo -n -e "\e[34mDownloading user dependcines\e[0m\t"
+id -u roboshop &>/dev/null
+case $? in
+0)
+  ;;
+*)
+useradd roboshop  &>> $LOG_FILE
+;;
+esac
+curl -s -L -o /tmp/$COMPONENT.zip "https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/360c1f78-e8ed-41e8-8b3d-bdd12dc8a6a1/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true"  &>> $LOG_FILE
+cd /home/roboshop
+mkdir -p $COMPONENT
+cd $COMPONENT
+unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
+npm install --unsafe-perm  &>> $LOG_FILE
+status
+chown -R roboshop:roboshop /home/roboshop/$COMPONENT
+echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
+mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
+status
+echo -n -e "\e[34mStart $COMPONENT service\e[0m\t\t"
+systemctl daemon-reload
+systemctl start $COMPONENT
+systemctl enable $COMPONENT
+status
 *)
   echo "Invalid entry "
   ;;
