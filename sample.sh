@@ -44,6 +44,7 @@ status
 chown -R roboshop:roboshop /home/roboshop/$COMPONENT &>> $LOG_FILE
 echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service &>> $LOG_FILE
+status
 echo -n -e "\e[34mStarting $COMPONENT service\e[0m\t\t"
 systemctl daemon-reload &>> $LOG_FILE
 systemctl start $COMPONENT &>> $LOG_FILE
