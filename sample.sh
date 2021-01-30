@@ -33,7 +33,7 @@ app_service() {
 echo -n -e "\e[34mInstalling node js\e[0m\t\t"
 yum install nodejs make gcc-c++ -y &>> $LOG_FILE
 status
-echo -n -e "\e[34mDownloading catalogue dependcines\e[0m\t"
+echo -n -e "\e[34mDownloading $COMPONENT dependcines\e[0m"
 curl -s -L -o /tmp/$COMPONENT.zip $1 &>> $LOG_FILE
 cd /home/roboshop &>> $LOG_FILE
 mkdir -p $COMPONENT &>> $LOG_FILE
@@ -42,8 +42,9 @@ unzip  -o /tmp/$COMPONENT.zip &>> $LOG_FILE
 npm install --unsafe-perm &>> $LOG_FILE
 status
 chown -R roboshop:roboshop /home/roboshop/$COMPONENT &>> $LOG_FILE
-echo -n -e "\e[34mUpdate configuration files\e[0m\t\t" &>> $LOG_FILE
+echo -n -e "\e[34mUpdate configuration files\e[0m\t\t"
 mv /home/roboshop/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service &>> $LOG_FILE
+echo -n -e "\e[34mStarting $COMPONENT service\e[0m\t\t"
 systemctl daemon-reload &>> $LOG_FILE
 systemctl start $COMPONENT &>> $LOG_FILE
 systemctl enable $COMPONENT &>> $LOG_FILE
