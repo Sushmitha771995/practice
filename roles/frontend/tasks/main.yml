@@ -32,7 +32,7 @@
 
 - name: Copy config files
   copy:
-    src: /usr/share/nginx/html/static/*
+    src: /usr/share/nginx/html/static
     dest: /usr/share/nginx/html
 
 
