@@ -1,0 +1,37 @@
+- name: install nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: run nginx service
+  systemd:
+    state: started
+    name: nginx
+    enabled: yes
+
+- name: Download file from a file path
+  get_url:
+    url: https://dev.azure.com/DevOps-Batches/f4b641c1-99db-46d1-8110-5c6c24ce2fb9/_apis/git/repositories/a781da9c-8fca-4605-8928-53c962282b74/items?path=%2F&versionDescriptor%5BversionOptions%5D=0&versionDescriptor%5BversionType%5D=0&versionDescriptor%5Bversion%5D=master&resolveLfs=true&%24format=zip&api-version=5.0&download=true
+    dest: /tmp/frontend.zip
+
+
+- name: Remove file (delete file)
+  file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Extract frontend files
+  unarchive:
+    src: /tmp/frontend.zip
+    dest: /usr/share/nginx/html
+
+- name: Copy confi files
+  copy:
+    src: usr/share/nginx/htm/localhost.conf
+    dest: etc/nginx/default.d/roboshop.conf
+
+- name: run nginx service
+  systemd:
+    state: started
+    name: nginx
+    enabled: yes
