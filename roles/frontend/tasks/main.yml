@@ -32,6 +32,12 @@
 
 - name: Copy config files
   copy:
+    src: /usr/share/nginx/html/static/*
+    dest: /usr/share/nginx/html
+
+
+- name: Copy config files
+  copy:
     src: /usr/share/nginx/html/localhost.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
