@@ -32,7 +32,7 @@
 
 - name: Copy config files
   copy:
-    src: usr/share/nginx/html/localhost.conf
+    src: /usr/share/nginx/html/localhost.conf
     dest: etc/nginx/default.d/roboshop.conf
 
 - name: run nginx service
