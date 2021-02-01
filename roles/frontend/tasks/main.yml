@@ -20,12 +20,17 @@
     path: /usr/share/nginx/html
     state: absent
 
+- name: Create a directory
+  file:
+    path: /usr/share/nginx/html
+    state: directory
+
 - name: Extract frontend files
   unarchive:
     src: /tmp/frontend.zip
     dest: /usr/share/nginx/html
 
-- name: Copy confi files
+- name: Copy config files
   copy:
     src: usr/share/nginx/htm/localhost.conf
     dest: etc/nginx/default.d/roboshop.conf
