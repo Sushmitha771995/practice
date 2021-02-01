@@ -1,3 +1,0 @@
-- name: deploy frontend
-  roles:
-    - name: frontend
