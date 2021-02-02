@@ -1,0 +1,57 @@
+{
+  "IamFleetRole": "arn:aws:iam::829460659933:role/aws-ec2-spot-fleet-tagging-role",
+  "AllocationStrategy": "capacityOptimized",
+  "TargetCapacity": 1,
+  "SpotPrice": "0.0116",
+  "ValidFrom": "2021-02-02T15:33:29Z",
+  "ValidUntil": "2022-02-02T15:33:29Z",
+  "TerminateInstancesWithExpiration": true,
+  "LaunchSpecifications": [
+    {
+      "ImageId": "ami-052ed3344670027b3",
+      "InstanceType": "t2.micro",
+      "SubnetId": "subnet-08716300ff140d163",
+      "KeyName": "firstkey-pair",
+      "SpotPrice": "0.0116",
+      "BlockDeviceMappings": [
+        {
+          "DeviceName": "/dev/sda1",
+          "Ebs": {
+            "DeleteOnTermination": true,
+            "VolumeType": "gp2",
+            "VolumeSize": 16,
+            "SnapshotId": "snap-00478bbd380c891ed"
+          }
+        }
+      ],
+      "SecurityGroups": [
+        {
+          "GroupId": "sg-0637064c2704e0853"
+        }
+      ],
+      "TagSpecifications": [
+        {
+          "ResourceType": "instance",
+          "Tags": [
+            {
+              "Key": "name",
+              "Value": "frontend"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Type": "maintain",
+  "TagSpecifications": [
+    {
+      "ResourceType": "spot-fleet-request",
+      "Tags": [
+        {
+          "Key": "name",
+          "Value": "frontend"
+        }
+      ]
+    }
+  ]
+}
