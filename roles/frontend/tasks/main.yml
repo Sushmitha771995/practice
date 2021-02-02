@@ -1,6 +1,7 @@
 - name: install azure-cli
   include_role:
-    name: azure-artifact.yml
+    name: common
+    tasks_from: azure-artifact.yml
 
 
 
