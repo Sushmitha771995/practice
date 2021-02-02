@@ -15,7 +15,7 @@
   shell: echo {{PAT}} | az devops login
 
 - name: get the latest version
-  shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/231ee70c-0b6d-4d95-8b4c-28ab8b84ed1f/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep PreRelease | head -1 | xargs | awk '{print $1}'
+  shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/231ee70c-0b6d-4d95-8b4c-28ab8b84ed1f/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Pre* | head -1 | xargs | awk '{print $1}'
   register: version
 - name: download artifacts latest local {{version.stdout}}
   shell: az artifacts universal download \
