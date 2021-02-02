@@ -10,3 +10,18 @@
 
 - name: istall azure cli extention
   shell: az extension add --name azure-devops
+
+- name: configure azure cli
+  shell: echo {{PAT}} | az devops login
+
+- name: download artifacts
+  shell: az artifacts universal download \
+    --organization "https://dev.azure.com/sushmitha771995/" \
+    --project "0c8936fe-4cdc-445e-bd0b-2e7dc0f25a3f" \
+    --scope project \
+    --feed "instana" \
+    --name "cart" \
+    --version "0.0.2" \
+    --path .
+  args:
+    chdir: /tmp/cart/
