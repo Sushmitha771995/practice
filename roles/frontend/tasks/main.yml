@@ -1,6 +1,6 @@
 - name: install azure-cli
   include_role:
-    name: common
+    name: czure-artifact.yml
 
 
 
