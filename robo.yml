@@ -1,4 +1,5 @@
 - name: deploy frontend
   hosts: all
+  become: yes
   roles:
     - name: frontend

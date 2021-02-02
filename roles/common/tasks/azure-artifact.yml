@@ -1,0 +1,12 @@
+- name: cpy AZ repo
+  copy:
+    src: azure-clirepo.yml
+    dest: /etc/yum.repos.d/az-cli.repo
+
+- name: install azure cli
+  yum:
+    name: ["azure-cli" , "libicu"]
+    state: latest
+
+- name: istall azure cli extention
+  shell: az-extension add --name azure-devops
