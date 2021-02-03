@@ -1,7 +1,30 @@
-- name: install azure-cli
+- name: install nginx
+  yum:
+    name: nginx
+    state: latest
+
+- name: Remove ht doc (delete file)
+  file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Create a directory
+  file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: download Azure artifacts
   include_role:
     name: common
     tasks_from: azure-artifact.yml
+
+- name: start nginx service
+  systemd:
+    state: started
+    name: nginx
+    enabled: yes
+
+
 
 
 

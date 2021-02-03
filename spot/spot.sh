@@ -1,4 +1,4 @@
-if [ -z "$1"] ; then
+if [ -z "$1"]; then
   echo "enter json file name"
   exit 1
 fi

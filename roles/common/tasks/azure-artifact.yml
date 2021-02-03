@@ -14,17 +14,45 @@
 - name: configure azure cli
   shell: echo {{PAT}} | az devops login
 
-- name: get the latest version
-  shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/231ee70c-0b6d-4d95-8b4c-28ab8b84ed1f/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Pre* | head -1 | xargs | awk '{print $1}'
-  register: version
-- name: download artifacts latest local {{version.stdout}}
+
+- name: get the latest version for Dev
+  block:
+     - name: grab the version
+       shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/{{ COMPONENET_ID}}/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Local | head -1 | xargs | awk '{print $1}'
+       register: version_dev
+    - name: set version for dev {{version_dev.stdout}}
+      set_fact:
+        version: "{{version_dev.stdout}}"
+  when ENV == "DEV"
+
+- name: download artifact
+  block:
+    - name: grab the version
+      shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/{{ COMPONENET_ID}}/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Pre* | head -1 | xargs | awk '{print $1}'
+      register: version_qa
+    - name: set version for dev {{version_dev.stdout}}
+      set_fact:
+        version: "{{version_qa.stdout}}"
+  when ENV == "QA"
+
+- name: download artifact
+  block:
+    - name: grab the version
+      shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/{{ COMPONENET_ID}}/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Local | head -1 | xargs | awk '{print $1}'
+      register: version_prod
+    - name: set version for prod {{version_prod.stdout}}
+      set_fact:
+        version: "{{version_prod.stdout}}"
+  when ENV == "PROD"
+
+- name: Download Azure Atifact {{ version }}
   shell: az artifacts universal download \
-    --organization "https://dev.azure.com/sushmitha771995/" \
-    --project "0c8936fe-4cdc-445e-bd0b-2e7dc0f25a3f" \
-    --scope project \
-    --feed "instana" \
-    --name "cart" \
-    --version "{{version.stdout}}" \
-    --path .
-  args:
-    chdir: /tmp
+        --organization "https://dev.azure.com/sushmitha771995/" \
+        --project "0c8936fe-4cdc-445e-bd0b-2e7dc0f25a3f" \
+        --scope project \
+        --feed "instana" \
+        --name "$COMPONENET" \
+        --version "{{version}}" \
+        --path .
+      args:
+      chdir: /tmp

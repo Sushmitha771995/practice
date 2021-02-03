@@ -1,5 +1,10 @@
-- name: deploy frontend
+- name: robpshop playook
   hosts: all
   become: yes
-  roles:
-    - name: frontend
+  tasks:
+    - name: import frontend role
+      import_role:
+         name: frontend
+      when: component == "frontend"
+      tags:
+        - frontend
