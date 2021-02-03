@@ -6,7 +6,7 @@
 - name: install azure cli
   yum:
     name: ["azure-cli" , "libicu"]
-    state: latest
+    state: present
 
 - name: istall azure cli extention
   shell: az extension add --name azure-devops
