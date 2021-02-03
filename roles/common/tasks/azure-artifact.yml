@@ -20,9 +20,9 @@
      - name: grab the version
        shell: curl -s curl https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/{{ COMPONENET_ID}}/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Local | head -1 | xargs | awk '{print $1}'
        register: version_dev
-    - name: set version for dev {{version_dev.stdout}}
-      set_fact:
-        version: "{{version_dev.stdout}}"
+     - name: set version for dev {{version_dev.stdout}}
+       set_fact:
+         version: "{{version_dev.stdout}}"
   when ENV == "DEV"
 
 - name: download artifact
