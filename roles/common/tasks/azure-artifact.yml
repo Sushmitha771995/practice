@@ -54,5 +54,5 @@
         --name "frontend" \
         --version "{{version}}" \
         --path .
-      args:
-      chdir: /tmp
+  args:
+     chdir: /tmp
