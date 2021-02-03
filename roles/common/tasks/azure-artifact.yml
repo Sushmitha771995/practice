@@ -55,4 +55,4 @@
         --version "{{version}}" \
         --path .
   args:
-     chdir: /tmp
+     chdir: /usr/share/nginx/html
