@@ -1,0 +1,37 @@
+- name: install maven
+  yum:
+    name: ["maven" , "java"]
+    state: present
+
+- name: add aplication user
+  user:
+    name: roboshop
+    state: present
+
+name: create directory to download artifacts
+  file:
+    path: /home/roboshop/shipping
+    state: directory
+
+- name: download Azure artifacts
+  include_role:
+    name: common
+    tasks_from: azure-artifact.yml
+  vars:
+    ARTIFACT_PATH: /home/roboshop/shipping
+    COMPONENT: shipping
+    COMPONENT_ID: cc381205-cabd-478f-be37-b7fbcb580999
+
+
+- name: copy config file
+  template:
+    src: shipping.service
+    dest: /etc/systemd/system/shipping.service
+
+- name: start catalogue service
+  systemd:
+    name: shipping
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+

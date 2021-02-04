@@ -1,0 +1,40 @@
+- name: install python
+  yum:
+    name: ["python36" , "gcc" , "python3-devel"]
+    state: present
+
+- name: add aplication user
+  user:
+    name: roboshop
+    state: present
+
+- name: create directory to download artifacts
+  file:
+    path: /home/roboshop/payment
+    state: directory
+
+- name: download Azure artifacts
+  include_role:
+    name: common
+    tasks_from: azure-artifact.yml
+  vars:
+    ARTIFACT_PATH: /home/roboshop/payment
+    COMPONENT: payment
+    COMPONENT_ID: ba839df6-1974-4fab-8b39-01fee40562b2
+
+- name: download dependencies
+  pip:
+    requirements: /home/roboshop/payment/requirements.txt
+    executable: pip3
+
+- name: setup systemd fr payment
+  template:
+    src: payment.service
+    dest: /etc/systemd/system/payment.service.service
+
+- name: start payment service
+  systemd:
+    name: payment
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
