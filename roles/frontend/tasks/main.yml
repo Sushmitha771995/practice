@@ -24,7 +24,7 @@
       COMPONENT_ID: 0237947c-8a5c-41bb-a2bc-f6ca6e5e2584
 
 - name: Update Nginx configuration
-  template:
+  copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
