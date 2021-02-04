@@ -30,7 +30,7 @@
     - name: grab the version
       shell: curl -s https://feeds.dev.azure.com/sushmitha771995/instana/_apis/packaging/Feeds/instana/Packages/{{COMPONENT_ID}}/versions?api-version=6.1-preview.1 | jq '.value[] | .version+ " " + .views[].name' | grep Pre* | head -1 | xargs | awk '{print $1}'
       register: version_qa
-    - name: set version for dev {{version_dev.stdout}}
+    - name: set version for dev {{version_qa.stdout}}
       set_fact:
         version: "{{version_qa.stdout}}"
   when: ENV == "QA"
