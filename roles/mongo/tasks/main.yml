@@ -1,14 +1,14 @@
 - name: set up mongo repo
   copy:
-    src: mongo_repo.yml
-    dest: /etc/yum.repos.d/mongodb.repo
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
 
 - name: install mongodb
   yum:
     name: mongodb-org
     state: present
 
-- name: replace 120.0.0.0 by 0.0.0.0
+- name: replace 120.0.0.1 by 0.0.0.0
   replace:
     path: /etc/mongod.conf
     regexp: '127.0.0.1'
