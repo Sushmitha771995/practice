@@ -52,7 +52,7 @@
     --scope project \
     --feed "instana" \
     --name "{{COMPONENT}}" \
-    --version "{{version.stdout}}" \
+    --version "{{version}}" \
     --path .
   args:
      chdir: "{{ ARTIFACT_PATH }}"
