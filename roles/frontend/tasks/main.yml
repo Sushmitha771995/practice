@@ -27,7 +27,7 @@
   template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
-  notify: Restart Nginx
+
 
 - name: start nginx service
   systemd:
