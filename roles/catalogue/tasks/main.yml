@@ -8,7 +8,7 @@
     name: roboshop
     state: present
 
-- name: carete directory to download artifacts
+- name: create directory to download artifacts
   file:
     path: /home/roboshop/catalogue
     state: directory
