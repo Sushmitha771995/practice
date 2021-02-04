@@ -10,7 +10,7 @@
         - frontend
     - name: import mongo role
         import_role:
-          name: frontend
+          name: mongo
         when: component == "mongo"
         tags:
           - mongo
