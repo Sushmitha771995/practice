@@ -47,12 +47,12 @@
 
 - name: Download Azure Atifact {{ version }}
   shell: az artifacts universal download \
-        --organization "https://dev.azure.com/sushmitha771995/" \
-        --project "0c8936fe-4cdc-445e-bd0b-2e7dc0f25a3f" \
-        --scope project \
-        --feed "instana" \
-        --name "{{COMPONENT}}" \
-        --version "{{version}}" \
-        --path .
-  args:
+    --organization "https://dev.azure.com/sushmitha771995/" \
+    --project "0c8936fe-4cdc-445e-bd0b-2e7dc0f25a3f" \
+    --scope project \
+    --feed "instana" \
+    --name "{{COMPONENT}}" \
+    --version "{{version.stdout}}" \
+    --path .
+    args:
      chdir: "{{ ARTIFACT_PATH }}"
