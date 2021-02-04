@@ -8,3 +8,33 @@
       when: component == "frontend"
       tags:
         - frontend
+    - name: import mongo role
+        import_role:
+          name: frontend
+        when: component == "mongo"
+        tags:
+          - mongo
+    - name: import catalogue role
+        import_role:
+          name: catalogue
+        when: component == "catalogue"
+        tags:
+          - catalogue
+    - name: import user role
+        import_role:
+          name: user
+        when: component == "user"
+        tags:
+          - user
+    - name: import cart role
+        import_role:
+          name: cart
+        when: component == "cart"
+        tags:
+          - cart
+    - name: import redis role
+        import_role:
+          name: frontend
+        when: component == "redis"
+        tags:
+          - redis

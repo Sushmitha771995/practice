@@ -1,0 +1,36 @@
+- name: instal node js
+  yum:
+    name: nodejs
+    state: present
+
+- name: add aplication user
+  user:
+    name: roboshop
+    state: present
+
+- name: carete directory to download artifacts
+  file:
+    path: /home/roboshop/catalogue
+    state: directory
+
+- name: download Azure artifacts
+  include_role:
+    name: common
+    tasks_from: azure-artifact.yml
+  vars:
+    ARTIFACT_PATH: /home/roboshop/user
+    COMPONENT: user
+    COMPONENT_ID: 955ddb6e-f84e-49e6-aa13-2d477e1cce57
+
+- name: copy config file
+  template:
+    src: user.service
+    dest: /etc/systemd/system/user.service
+
+- name: start user service
+  systemd:
+    name: user
+    daemon_reload: yes
+    enabled: yes
+
+
