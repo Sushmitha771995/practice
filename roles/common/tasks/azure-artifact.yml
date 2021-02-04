@@ -54,5 +54,5 @@
     --name "{{COMPONENT}}" \
     --version "{{version.stdout}}" \
     --path .
-    args:
+  args:
      chdir: "{{ ARTIFACT_PATH }}"
