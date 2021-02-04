@@ -23,7 +23,7 @@
 - name: download schema from artifact
   include_role:
     name: common
-    tasks_from: azure-clirepo.yml
+    tasks_from: azure-artifact.yml
   vars:
     ARTIFACT_PATH: /tmp/mongo
     COMPONENT: mongo
