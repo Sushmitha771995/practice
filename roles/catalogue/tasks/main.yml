@@ -30,7 +30,7 @@
 - name: start catalogue service
   systemd:
     name: catalogue
-    stae: restarted
+    state: restarted
     enabled: yes
 
 
