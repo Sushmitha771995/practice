@@ -1,27 +1,17 @@
-- name: install nginx
+- name: Install Nginx
   yum:
     name: nginx
     state: latest
 
-#- name: Remove ht doc (delete file)
-#  file:
-#    path: /usr/share/nginx/html
-#    state: absent
-
-#- name: Create a directory
-#  file:
-#    path: /usr/share/nginx/html
-#    state: directory
-
-- name: download Azure artifacts
+- name: Download Azure Artifacts
   include_role:
     name: common
     tasks_from: azure-artifact.yml
   vars:
-      ARTIFACT_PATH: /usr/share/nginx/html
-      COMPONENT: frontend
-      ENV: DEV
-      COMPONENT_ID: 0237947c-8a5c-41bb-a2bc-f6ca6e5e2584
+    ARTIFACT_PATH: /usr/share/nginx/html
+    COMPONENT: frontend
+    COMPONENT_ID: 0237947c-8a5c-41bb-a2bc-f6ca6e5e2584
+    type: frontend
 
 - name: Update Nginx configuration
   template:
@@ -29,14 +19,7 @@
     dest: /etc/nginx/default.d/roboshop.conf
   notify: Restart Nginx
 
-- name: start nginx service
+- name: Start Nginx Service
   systemd:
-    name: nginx
     state: started
-    enabled: yes
-
-
-
-
-
-
+    name: nginx
