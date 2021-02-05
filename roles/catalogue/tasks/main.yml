@@ -24,7 +24,7 @@
 
 - name: copy config file
   template:
-    src: catalogue.service
+    src: systemd.service
     dest: /etc/systemd/system/catalogue.service
 
 - name: start catalogue service
