@@ -31,7 +31,6 @@
   systemd:
     name: catalogue
     stae: restarted
-    daemon_reload: yes
     enabled: yes
 
 
