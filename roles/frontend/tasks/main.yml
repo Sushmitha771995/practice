@@ -3,15 +3,15 @@
     name: nginx
     state: latest
 
-- name: Remove ht doc (delete file)
-  file:
-    path: /usr/share/nginx/html
-    state: absent
+#- name: Remove ht doc (delete file)
+#  file:
+#    path: /usr/share/nginx/html
+#    state: absent
 
-- name: Create a directory
-  file:
-    path: /usr/share/nginx/html
-    state: directory
+#- name: Create a directory
+#  file:
+#    path: /usr/share/nginx/html
+#    state: directory
 
 - name: download Azure artifacts
   include_role:
