@@ -10,7 +10,7 @@
 
 - name: carete directory to download artifacts
   file:
-    path: /home/roboshop/catalogue
+    path: /home/roboshop/user
     state: directory
 
 - name: download Azure artifacts
