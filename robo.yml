@@ -36,7 +36,7 @@
         - cart
     - name: import redis role
       import_role:
-        name: frontend
+        name: redis
       when: component == "redis"
       tags:
         - redis
