@@ -1,5 +1,5 @@
 - name: cpy AZ repo
-  copy:
+  template:
     src: azure-cli.repo
     dest: /etc/yum.repos.d/azure-cli.repo
 
