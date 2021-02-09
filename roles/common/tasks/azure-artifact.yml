@@ -12,7 +12,7 @@
   shell: az extension add --name azure-devops
 
 - name: configure azure cli
-  shell: echo {{PAT}} | az devops login
+  shell: echo {{PAT}} | sudo az devops login
 
 - name: get the latest version
   block:
