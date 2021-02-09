@@ -1,6 +1,6 @@
 - name: cpy AZ repo
   copy:
-    src: azure-clirepo.yml
+    src: azure-cli.repo
     dest: /etc/yum.repos.d/az-cli.repo
 
 - name: install azure cli
@@ -13,7 +13,6 @@
 
 - name: configure azure cli
   shell: echo {{PAT}} | az devops login
-
 
 - name: get the latest version
   block:
