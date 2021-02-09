@@ -2,9 +2,9 @@
   "IamFleetRole": "arn:aws:iam::829460659933:role/aws-ec2-spot-fleet-tagging-role",
   "AllocationStrategy": "capacityOptimized",
   "TargetCapacity": 1,
+  "ValidFrom": "2021-02-09T13:00:05Z",
+  "ValidUntil": "2022-02-09T13:00:05Z",
   "SpotPrice": "0.0116",
-  "ValidFrom": "2021-02-02T15:33:29Z",
-  "ValidUntil": "2022-02-02T15:33:29Z",
   "TerminateInstancesWithExpiration": true,
   "LaunchSpecifications": [
     {
@@ -12,18 +12,27 @@
       "InstanceType": "t2.micro",
       "SubnetId": "subnet-08716300ff140d163",
       "KeyName": "firstkey-pair",
-      "SpotPrice": "0.0116",
       "BlockDeviceMappings": [
         {
           "DeviceName": "/dev/sda1",
           "Ebs": {
             "DeleteOnTermination": true,
-            "VolumeType": "gp2",
+            "SnapshotId": "snap-00478bbd380c891ed",
             "VolumeSize": 16,
-            "SnapshotId": "snap-00478bbd380c891ed"
+            "VolumeType": "gp2",
+            "Encrypted": false
           }
+        },
+        {
+          "DeviceName": "/dev/xvdb",
+          "VirtualName": "ephemeral0"
+        },
+        {
+          "DeviceName": "/dev/xvdc",
+          "VirtualName": "ephemeral1"
         }
       ],
+      "SpotPrice": "0.0116",
       "SecurityGroups": [
         {
           "GroupId": "sg-0637064c2704e0853"
