@@ -57,7 +57,7 @@
       "ResourceType": "spot-fleet-request",
       "Tags": [
         {
-          "Key": "name",
+          "Key": "Name",
           "Value": "frontend"
         }
       ]
