@@ -1,6 +1,9 @@
 - name: robpshop playook
   hosts: all
   become: yes
+  vars:
+    APP_USER: roboshop
+    DOMAIN: instana.internal
   tasks:
     - name: import frontend role
       import_role:
