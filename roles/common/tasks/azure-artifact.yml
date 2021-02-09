@@ -1,7 +1,7 @@
 - name: cpy AZ repo
   copy:
     src: azure-cli.repo
-    dest: /etc/yum.repos.d/az-cli.repo
+    dest: /etc/yum.repos.d/azure-cli.repo
 
 - name: install azure cli
   yum:
