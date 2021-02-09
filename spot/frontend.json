@@ -43,7 +43,7 @@
           "ResourceType": "instance",
           "Tags": [
             {
-              "Key": "name",
+              "Key": "Name",
               "Value": "frontend"
             }
           ]
